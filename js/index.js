@@ -1,4 +1,4 @@
-const MUSIC_LIST = [
+const DATA = [
     {
       img: "./images/Faded.jpg",
       name: "Faded",
@@ -36,3 +36,6 @@ const MUSIC_LIST = [
       music: "./musics/ocean.mp3",
     },
   ];
+let renderContent=(data) => { 
+
+ }
