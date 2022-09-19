@@ -9,7 +9,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- link css -->
-    <script src="./index.css"></script>
+    <link rel="stylesheet" href="./index.css" />
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -18,20 +18,30 @@
       crossorigin="anonymous"
     />
     <!-- font awsome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
-  <body style="background-color:#C3FF99;">
-<!-- <section class="volumeChange"><input onchange="setVolume()" type="range" min="0" max="100" value="10" ></section> -->
-    <div id="show" class="container row mx-auto">
-  
-      <!-- <div class="col-4">
-        <img src="https://picsum.photos/200/300" alt="image" />
-        <audio loop controls>
-          <source src="./musics/ocean.mp3" type="audio/mp3">
-        </audio>
-      </div> -->
-    
+  <body style="background-color: #c3ff99">
+    <div id="fill" class="form-group w-25 mx-auto mt-4 d-flex">
+      <input
+        type="number"
+        name=""
+        id="inputTime"
+        class="form-control"
+        placeholder="Time"
+      />
+      <button id="setTime" type="button" class="btn btn-dark mx-2">
+        <i class="fa-solid fa-clock"></i
+        ><i style="display: none" class="fa-sharp fa-solid fa-rotate-left"></i>
+      </button>
     </div>
+    <h3 id="showTime" class="text-info text-center"></h3>
+    <div id="show" class="container content row mx-auto"></div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script

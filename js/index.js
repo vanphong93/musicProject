@@ -72,13 +72,11 @@ const DATA = [
 let contentMusic = (item, i) => {
   return `  <div class="col-4 item_${i} text-center"  style="height:250px;">
     
-    <img style="height: 80px;width:80px;" class="my-3" src="${item.img}">
+    <img onclick="buttonPlay(${i})" style="height: 80px;width:80px;" class="my-3" src="${item.img}">
     <audio loop id="${i}">
       <source src="${item.music}" type="audio/mp3">
     </audio>
     <section class="volumeChange"><input style="display:none;" id="volume_${i}" onchange="setVolume(${i})" type="range" min="0" max="100" value="30" ></section>
-    <button type="button" onclick="buttonPlay(${i})" class="btn btn-success"><i class="fas fa-play"></i></button>
-    <button style="display: none;" type="button" onclick="buttonPause(${i})" class="btn btn-warning hidden"><i class="fa-solid fa-pause"></i></button>
     <h3>${item.name}</h3>
   </div>`;
 };
@@ -93,26 +91,64 @@ let renderContent = (data) => {
 
 renderContent(DATA);
 function buttonPlay(index) {
-  document.getElementById(index).play();
-  document
-    .getElementsByClassName("item_" + index)[0]
-    .getElementsByTagName("*")[5].style.display = "none";
-  document
-    .getElementsByClassName("item_" + index)[0]
-    .getElementsByTagName("*")[7].style.display = "inline-block";
-  document.getElementById("volume_" + index).style.display = "inline-block";
-}
-function buttonPause(index) {
-  document.getElementById(index).pause();
-  document
-    .getElementsByClassName("item_" + index)[0]
-    .getElementsByTagName("*")[7].style.display = "none";
-  document
-    .getElementsByClassName("item_" + index)[0]
-    .getElementsByTagName("*")[5].style.display = "inline-block";
-  document.getElementById("volume_" + index).style.display = "none";
+  let x = document.getElementById(index);
+  let y = document.getElementById("volume_" + index);
+  if (y.style.display === "none") {
+    x.play();
+    y.style.display = "inline-block";
+  } else {
+    x.pause();
+    y.style.display = "none";
+  }
 }
 function setVolume(index) {
   var x = document.getElementById("volume_" + index).value;
   document.getElementById(index).volume = x / 100;
 }
+function startTimer(duration, display, reset) {
+  // if (reset) {
+
+  // document.querySelector("#showTime").innerHTML = "";
+  // }
+  var timer = duration,
+    minutes,
+    seconds;
+  let x = setInterval(function () {
+    minutes = parseInt(timer / 60, 10);
+    seconds = parseInt(timer % 60, 10);
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    display.textContent = minutes + ":" + seconds;
+
+    if (--timer < 0) {
+      clearInterval(x);
+      let elementAudio = document
+        .getElementById("show")
+        .getElementsByTagName("audio");
+      for (let index = 0; index < elementAudio.length; index++) {
+        elementAudio[index].pause();
+      }
+      document.querySelector("#showTime").innerHTML = "Time out ! F5 please";
+    }
+  }, 1000);
+}
+
+document.getElementById("setTime").addEventListener("click", () => {
+  var minutes = document.getElementById("inputTime").value * 60,
+    display = document.querySelector("#showTime"),
+    reset = false;
+  var input = document.getElementById("inputTime");
+  if (input.disabled) {
+    reset = true;
+  }
+  startTimer(minutes, display, reset);
+  // var element = document.getElementById("setTime").getElementsByTagName("i");
+  // element[0].style.display = "none";
+  // element[1].style.display = "block";
+  input.disabled = "true";
+document.getElementById("setTime").disabled="true"
+
+  
+});
