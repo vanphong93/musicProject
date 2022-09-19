@@ -70,14 +70,16 @@ const DATA = [
   },
 ];
 let contentMusic = (item, i) => {
-  return `  <div class="col-4 item_${i} text-center">
-    <h3>${item.name}</h3>
+  return `  <div class="col-4 item_${i} text-center"  style="height:250px;">
+    
     <img style="height: 80px;width:80px;" class="my-3" src="${item.img}">
-    <audio id="${i}">
+    <audio loop id="${i}">
       <source src="${item.music}" type="audio/mp3">
     </audio>
+    <section class="volumeChange"><input style="display:none;" id="volume_${i}" onchange="setVolume(${i})" type="range" min="0" max="100" value="30" ></section>
     <button type="button" onclick="buttonPlay(${i})" class="btn btn-success"><i class="fas fa-play"></i></button>
     <button style="display: none;" type="button" onclick="buttonPause(${i})" class="btn btn-warning hidden"><i class="fa-solid fa-pause"></i></button>
+    <h3>${item.name}</h3>
   </div>`;
 };
 let renderContent = (data) => {
@@ -94,17 +96,23 @@ function buttonPlay(index) {
   document.getElementById(index).play();
   document
     .getElementsByClassName("item_" + index)[0]
-    .getElementsByTagName("*")[4].style.display = "none";
+    .getElementsByTagName("*")[5].style.display = "none";
   document
     .getElementsByClassName("item_" + index)[0]
-    .getElementsByTagName("*")[6].style.display = "inline-block";
+    .getElementsByTagName("*")[7].style.display = "inline-block";
+  document.getElementById("volume_" + index).style.display = "inline-block";
 }
 function buttonPause(index) {
   document.getElementById(index).pause();
   document
     .getElementsByClassName("item_" + index)[0]
-    .getElementsByTagName("*")[6].style.display = "none";
+    .getElementsByTagName("*")[7].style.display = "none";
   document
     .getElementsByClassName("item_" + index)[0]
-    .getElementsByTagName("*")[4].style.display = "inline-block";
+    .getElementsByTagName("*")[5].style.display = "inline-block";
+  document.getElementById("volume_" + index).style.display = "none";
+}
+function setVolume(index) {
+  var x = document.getElementById("volume_" + index).value;
+  document.getElementById(index).volume = x / 100;
 }
